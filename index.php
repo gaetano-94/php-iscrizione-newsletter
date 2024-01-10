@@ -1,3 +1,8 @@
+<?php
+// Include il file functions.php
+include 'functions.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,26 +23,22 @@
         <label for="emailInput">Indirizzo Email:</label>
         <input type="text" class="form-control" id="emailInput" name="email" placeholder="Inserisci l'indirizzo email">
       </div>
-      <button type="submit" class="btn btn-primary mt-1">Invia</button>
+      <button type="submit" class="btn btn-primary mt-2">Invia</button>
     </form>
     <?php
     // Controlla se il parametro email è impostato nel GET
     if (isset($_GET['email'])) {
       $email = $_GET['email'];
-      // Controlla se l'email è ben formata
-      if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        // Controlla se l'email contiene un punto e una chiocciola
-        if (strpos($email, '.') !== false && strpos($email, '@') !== false) {
-          echo '<div class="alert alert-success mt-3" role="alert">Successo: La mail contiene un punto e una chiocciola!</div>';
-        } else {
-          echo '<div class="alert alert-danger mt-3" role="alert">Errore: La mail NON contiene un punto e una chiocciola!</div>';
-        }
+      // Utilizza la funzione validateEmail
+      if (validateEmail($email)) {
+        echo '<div class="alert alert-success mt-3" role="alert">Successo: La mail contiene un punto e una chiocciola!</div>';
       } else {
-        echo '<div class="alert alert-danger mt-3" role="alert">Errore: Formato email non valido!</div>';
+        echo '<div class="alert alert-danger mt-3" role="alert">Errore: La mail NON contiene un punto e una chiocciola!</div>';
       }
     }
     ?>
   </div>
+
 </body>
 
 </html>
